@@ -1,0 +1,1 @@
+const int OT_POINTS_CAPACITY = 8;
