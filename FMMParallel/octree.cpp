@@ -34,6 +34,7 @@ void Octree::setBoundingBox(BoundingBox& bb) {
 bool Octree::insertPoint3d(Point3d& p) {
     if (!boundingBox_.containPoint(p))
         return false;
+
     if (isLeaf_) {
         if((int)points_.size() < OT_POINTS_CAPACITY) {
             points_.push_back(p);
@@ -54,7 +55,8 @@ bool Octree::insertPoint3d(Point3d& p) {
     }
 
     for(int i=0; i<8; i++) {
-        nodes_[i]->insertPoint3d(p);
+        if(nodes_[i]->insertPoint3d(p))
+            return true;
     }
 
     //if not successful, which is unlikely to occur
